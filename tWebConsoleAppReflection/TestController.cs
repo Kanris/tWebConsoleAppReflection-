@@ -27,11 +27,17 @@ namespace tWebConsoleAppReflection.Models
             foreach (var typeInNamespace in 
                                 GetTypesInNamespace(Assembly.GetExecutingAssembly(), GetType().Namespace))
             {
-                var methodsInfo = typeInNamespace.GetMethods();
-                resultList.Add($"{new string('-', 5)} {typeInNamespace.Name} {new string('-', 5)}");
+                var methodsInfo = typeInNamespace.GetMethods(BindingFlags.DeclaredOnly |
+                                                             BindingFlags.Instance |
+                                                             BindingFlags.Public);
 
-                foreach (var methodInfo in methodsInfo)
-                    resultList.Add(methodInfo.Name);
+                if (methodsInfo.Length > 0)
+                {
+                    resultList.Add($"{new string('-', 5)} {typeInNamespace.Name} {new string('-', 5)}");
+
+                    foreach (var methodInfo in methodsInfo)
+                        resultList.Add(methodInfo.Name);
+                }
             }
 
             return resultList;

@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace tWebConsoleAppReflection
+namespace tWebConsoleAppReflection.Models
 {
     //check in http://localhost:9000/api/test/GetTestControllerMethods
 
@@ -25,7 +25,7 @@ namespace tWebConsoleAppReflection
             var resultList = new List<string>();
 
             foreach (var typeInNamespace in 
-                                GetTypesInNamespace(Assembly.GetExecutingAssembly(), "tWebConsoleAppReflection"))
+                                GetTypesInNamespace(Assembly.GetExecutingAssembly(), GetType().Namespace))
             {
                 var methodsInfo = typeInNamespace.GetMethods();
                 resultList.Add($"{new string('-', 5)} {typeInNamespace.Name} {new string('-', 5)}");
